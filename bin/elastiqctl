@@ -1,0 +1,14 @@
+#!/bin/bash
+
+# elastiqctl -- by Dario Berzano <dario.berzano@cern.ch>
+
+# Wrapper invoking /etc/init.d/elastiq -- or local version if running from
+# the source directory.
+
+real_elastiqctl_dir="$( cd "`dirname "$0"`" ; pwd )"
+real_elastiqctl_dir="$( cd "${real_elastiqctl_dir}/../pylib" 2> /dev/null && pwd )"
+if [[ -d "$real_elastiqctl_dir" ]] ; then
+  exec "${real_elastiqctl_dir}/../etc/init.d/elastiq" "$@"
+else
+  exec /etc/init.d/elastiq "$@"
+fi
